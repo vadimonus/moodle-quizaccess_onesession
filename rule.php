@@ -47,7 +47,7 @@ class quizaccess_onesession extends quiz_access_rule_base {
     public static function make(quiz $quizobj, $timenow, $canignoretimelimits) {
         global $DB;
 
-        if (empty($quizobj->get_quiz()->onesessionenabled)) {
+        if (!empty($quizobj->get_quiz()->onesessionenabled)) {
             return new self($quizobj, $timenow);
         } else {
             return null;
@@ -75,6 +75,17 @@ class quizaccess_onesession extends quiz_access_rule_base {
             }
         }
         return get_string('subnetwrong', 'quizaccess_ipaddress');*/
+    }
+
+    /**
+     * Information, such as might be shown on the quiz view page, relating to this restriction.
+     * There is no obligation to return anything. If it is not appropriate to tell students
+     * about this rule, then just return ''.
+     * @return mixed a message, or array of messages, explaining the restriction
+     *         (may be '' if no message is appropriate).
+     */
+    public function description() {
+        return get_string('studentinfo', 'quizaccess_onesession');
     }
 
     /**

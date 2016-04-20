@@ -24,11 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-/*$string['addsubnet'] = 'Add location';
-$string['allowedsubnets'] = 'Allowed locations';
-$string['allowedsubnets_help'] = 'Quiz access may be restricted to particular locations depending on user\'s IP address. List of locations and corresponding IP subnets is defined by site administrator. Use Ctrl to select multiple locations. Select none to disable this location check.';
-$string['editsubnet'] = 'Editing location';
-$string['managesubnets'] = 'Locations management';*/
 $string['pluginname'] = 'Block concurrent sessions quiz access rule';
 $string['onesession'] = 'Block concurrent connections';
-$string['onesession_help'] = 'If enabled users can continue quiz attempt only in the same browser session. Any attempts to open same quiz attampt from another computer will be blocked. This may be useful to be shure that no one helps student by opening same quiz attampt on other computer.';
+$string['onesession_help'] = 'If enabled users can continue quiz attempt only in the same browser session. Any attempts to open same quiz attampt using another computer, device or browser will be blocked. This may be useful to be shure that no one helps student by opening same quiz attampt on other computer.';
+$string['studentinfo'] = 'Attention! It is prohibited to change device while attempting this quiz. Plaese note that after beginning of quiz attempt any connections to this quiz using other computers, devices and browsers will be blocked. Do not close the browser window until the end of attempt, otherwise you will not be able to complete this quiz.';
