@@ -55,26 +55,69 @@ class quizaccess_onesession extends quiz_access_rule_base {
     }
 
     /**
-     * Whether the user should be blocked from starting a new attempt or continuing
-     * an attempt now.
-     * @return string false if access should be allowed, a message explaining the
-     *      reason if access should be prevented.
+     * Returns session hash based on moodle session, IP and browser info
+     *
+     * @return string
      */
-    public function prevent_access() {
+    private function get_session_hash() {
+        return md5(sesskey() . getremoteaddr() . $_SERVER['HTTP_USER_AGENT']);
+    }
+
+    /**
+     * Returns session hash based on moodle session, IP and browser info
+     *
+     * @param string $hash
+     * @return bool
+     */
+    private function validate_session_hash($hash) {
+        if ($hash === $this->get_session_hash()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @param int|null $attemptid the id of the current attempt, if there is one,
+     *      otherwise null.
+     * @return bool whether a check is required before the user starts/continues
+     *      their attempt.
+     */
+    public function is_preflight_check_required($attemptid) {
         global $DB;
 
-        return false;
-
-        /*list($inorequal, $params) = $DB->get_in_or_equal($this->quiz->onesessionsubnets);
-        $select = 'id ' . $inorequal;
-        $subnets = $DB->get_records_select_menu('quizaccess_onesession_net', $select, $params, 'sortorder ASC, name ASC',
-                'id, subnet');
-        foreach ($subnets as $subnet) {
-            if (address_in_subnet(getremoteaddr(), $subnet)) {
-                return false;
-            }
+        if (is_null($attemptid)) {
+            return false;
         }
-        return get_string('subnetwrong', 'quizaccess_ipaddress');*/
+        $session = $DB->get_record('quizaccess_onesession_sess', array('attemptid' =>$attemptid));
+        if (empty($session)) {
+            $session = new stdClass();
+            $session->quizid = $this->quiz->id;
+            $session->attemptid = $attemptid;
+            $session->sessionhash = $this->get_session_hash();
+            $DB->insert_record('quizaccess_onesession_sess', $session);
+            return false;
+        } else if ($this->validate_session_hash($session->sessionhash)) {
+            return false;
+        } else {
+            // TODO: log this error.
+
+            // We do not need preflight form.
+            $url = new moodle_url('/mod/quiz/view.php', array('id' => $this->quizobj->get_cm()->id));
+            print_error('anothersession', 'quizaccess_onesession', $url);
+        }
+    }
+
+    /**
+     * This is called when the current attempt at the quiz is finished. This is
+     * used, for example by the password rule, to clear the flag in the session.
+     */
+    public function current_attempt_finished() {
+        global $DB, $USER;
+
+        $where = 'attemptid IN (SELECT id FROM {quiz_attempts} WHERE quiz = :quiz AND userid = :userid)';
+        $params = array('quiz' => $this->quiz->id, 'userid' => $USER->id);
+        $attempts = $DB->delete_records_select('quizaccess_onesession_sess', $where, $params);
     }
 
     /**
@@ -101,8 +144,7 @@ class quizaccess_onesession extends quiz_access_rule_base {
 
         $pluginconfig = get_config('quizaccess_onesession');
 
-        $select = $mform->addElement('checkbox', 'onesessionenabled',
-                get_string('onesession', 'quizaccess_onesession'));
+        $mform->addElement('checkbox', 'onesessionenabled', get_string('onesession', 'quizaccess_onesession'));
         $mform->setDefault('onesessionenabled', $pluginconfig->defaultenabled);
         $mform->setAdvanced('onesessionenabled', $pluginconfig->defaultenabled_adv);
         $mform->addHelpButton('onesessionenabled', 'onesession', 'quizaccess_onesession');
@@ -118,7 +160,8 @@ class quizaccess_onesession extends quiz_access_rule_base {
         global $DB;
 
         if (empty($quiz->onesessionenabled)) {
-            $DB->delete_records('quizaccess_onesession', array('quizid' => $quiz->id));
+            $DB->delete_records('quizaccess_onesession_sess', array('quizid' => $quiz->id));
+            $DB->delete_records('quizaccess_onesession_sess', array('quizid' => $quiz->id));
         } else {
             if (!$DB->record_exists('quizaccess_onesession', array('quizid' => $quiz->id))) {
                 $record = new stdClass();
@@ -140,7 +183,7 @@ class quizaccess_onesession extends quiz_access_rule_base {
         global $DB;
 
         $DB->delete_records('quizaccess_onesession', array('quizid' => $quiz->id));
-        // Удаление данных о сессия
+        $DB->delete_records('quizaccess_onesession_sess', array('quizid' => $quiz->id));
     }
 
     /**
