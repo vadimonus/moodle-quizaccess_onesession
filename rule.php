@@ -89,6 +89,12 @@ class quizaccess_onesession extends quiz_access_rule_base {
         if (is_null($attemptid)) {
             return false;
         }
+        // Do not lock preview.
+        // We cannot clear quizaccess_onesession_sess, because current_attempt_finished is not called on preview finish.
+        $attemptobj = quiz_attempt::create($attemptid);
+        if ($attemptobj->is_preview()) {
+            return false;
+        }
         $session = $DB->get_record('quizaccess_onesession_sess', array('attemptid' =>$attemptid));
         if (empty($session)) {
             $session = new stdClass();
@@ -103,8 +109,7 @@ class quizaccess_onesession extends quiz_access_rule_base {
             // TODO: log this error.
 
             // We do not need preflight form.
-            $url = new moodle_url('/mod/quiz/view.php', array('id' => $this->quizobj->get_cm()->id));
-            print_error('anothersession', 'quizaccess_onesession', $url);
+            print_error('anothersession', 'quizaccess_onesession', $this->quizobj->view_url());
         }
     }
 
@@ -129,6 +134,53 @@ class quizaccess_onesession extends quiz_access_rule_base {
      */
     public function description() {
         return get_string('studentinfo', 'quizaccess_onesession');
+    }
+
+    /**
+     * Get block with unlock attempt link
+     *
+     * @param moodle_page $page the page object to initialise.
+     */
+    private function get_attempt_unlock_block($attemptid) {
+        $block = new block_contents();
+        $block->attributes['id'] = 'quizaccess_onesession_unlockblock';
+        $block->title = get_string('unlockthisattempt_header', 'quizaccess_onesession');
+        $url = new moodle_url('/mod/quiz/quizaccess/onesession/unlock.php', array('attempt' => $attemptid, 'sesskey' => sesskey()));
+        $link = html_writer::link($url, get_string('unlockthisattempt','quizaccess_onesession'));
+        $block->content = $link;
+        return $block;
+    }
+
+    /**
+     * Sets up the attempt (review or summary) page with any special extra
+     * properties required by this rule. securewindow rule is an example of where
+     * this is used.
+     *
+     * @param moodle_page $page the page object to initialise.
+     */
+    public function setup_attempt_page($page) {
+        global $DB;
+
+        if (!has_capability('quizaccess/onesession:unlockattempt', $this->quizobj->get_context())) {
+            return;
+        }
+        $attemptid = $page->url->param('attempt');
+        if (empty($attemptid)) {
+            return;
+        }
+        $attemptobj = quiz_attempt::create($attemptid);
+        if ($attemptobj->is_preview()) {
+            return;
+        }
+        if ($attemptobj->get_state() != quiz_attempt::IN_PROGRESS) {
+            return;
+        }
+        if (!$DB->record_exists('quizaccess_onesession_sess', array('attemptid' => $attemptid))) {
+            return;
+        }
+        $unlockblock = $this->get_attempt_unlock_block($attemptid);
+        $regions = $page->blocks->get_regions();
+        $page->blocks->add_fake_block($unlockblock, reset($regions));
     }
 
     /**

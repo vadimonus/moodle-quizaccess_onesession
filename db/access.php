@@ -24,10 +24,17 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'quizaccess_onesession';
-$plugin->version   = 2016041901;
-$plugin->release = '0.4';
-$plugin->maturity = MATURITY_RC;
-$plugin->requires = 2015051100; // Moodle 3.0.
+$capabilities = array(
 
+    'quizaccess/onesession:unlockattempt' => array(
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_MODULE,
+        'archetypes' => array(
+            'teacher' => CAP_ALLOW,
+            'editingteacher' => CAP_ALLOW,
+            'manager' => CAP_ALLOW
+        ),
+    ),
+
+);
 

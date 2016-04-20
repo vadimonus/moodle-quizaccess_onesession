@@ -24,8 +24,11 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'Block concurrent sessions quiz access rule';
+$string['anothersession'] = 'You are trying to access quiz attempt from computer, device or browser other than the one you used to start quiz. If you have accidentally closed your browser, please, contact the teacher.';
 $string['onesession'] = 'Block concurrent connections';
 $string['onesession_help'] = 'If enabled users can continue quiz attempt only in the same browser session. Any attempts to open same quiz attampt using another computer, device or browser will be blocked. This may be useful to be shure that no one helps student by opening same quiz attampt on other computer.';
+$string['pluginname'] = 'Block concurrent sessions quiz access rule';
+$string['quizaccess_onesession:unlockattempt'] = 'Unlock quiz attempt';
 $string['studentinfo'] = 'Attention! It is prohibited to change device while attempting this quiz. Plaese note that after beginning of quiz attempt any connections to this quiz using other computers, devices and browsers will be blocked. Do not close the browser window until the end of attempt, otherwise you will not be able to complete this quiz.';
-$string['anothersession'] = 'You are trying to access quiz attempt from computer, device or browser other than the one you used to start quiz. If you have accidentally closed your browser, please, contact the teacher.';
+$string['unlockthisattempt'] = 'Allow student to continue this attempt using other device';
+$string['unlockthisattempt_header'] = 'Block concurrent connections';
