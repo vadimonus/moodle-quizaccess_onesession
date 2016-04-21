@@ -211,7 +211,7 @@ class quizaccess_onesession extends quiz_access_rule_base {
         global $DB;
 
         if (empty($quiz->onesessionenabled)) {
-            $DB->delete_records('quizaccess_onesession_sess', array('quizid' => $quiz->id));
+            $DB->delete_records('quizaccess_onesession', array('quizid' => $quiz->id));
             $DB->delete_records('quizaccess_onesession_sess', array('quizid' => $quiz->id));
         } else {
             if (!$DB->record_exists('quizaccess_onesession', array('quizid' => $quiz->id))) {
