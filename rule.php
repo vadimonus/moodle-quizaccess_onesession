@@ -145,7 +145,7 @@ class quizaccess_onesession extends quiz_access_rule_base {
         $block = new block_contents();
         $block->attributes['id'] = 'quizaccess_onesession_unlockblock';
         $block->title = get_string('unlockthisattempt_header', 'quizaccess_onesession');
-        $url = new moodle_url('/mod/quiz/quizaccess/onesession/unlock.php', array('attempt' => $attemptid, 'sesskey' => sesskey()));
+        $url = new moodle_url('/mod/quiz/accessrule/onesession/unlock.php', array('attempt' => $attemptid, 'sesskey' => sesskey()));
         $link = html_writer::link($url, get_string('unlockthisattempt','quizaccess_onesession'));
         $block->content = $link;
         return $block;

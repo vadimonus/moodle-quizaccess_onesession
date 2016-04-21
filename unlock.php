@@ -22,12 +22,19 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+require_once('../../../../config.php');
 
-$plugin->component = 'quizaccess_onesession';
-$plugin->version   = 2016041901;
-$plugin->release = '0.5';
-$plugin->maturity = MATURITY_ALPHA;
-$plugin->requires = 2015051100; // Moodle 3.0.
+require_login();
+require_sesskey();
 
+require_once("$CFG->dirroot/mod/quiz/attemptlib.php");
+require_once("$CFG->dirroot/mod/quiz/accessmanager.php");
+$attemptid = required_param('attempt', PARAM_INT);
+$attemptobj = quiz_attempt::create($attemptid);
+$context = $attemptobj->get_quizobj()->get_context();
+require_capability('quizaccess/onesession:unlockattempt', $context);
 
+$DB->delete_records('quizaccess_onesession_sess', array('attemptid' => $attemptid));
+
+$url = $attemptobj->get_quizobj()->review_url($attemptid);
+redirect($url);
