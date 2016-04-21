@@ -22,12 +22,31 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+namespace quizaccess_onesession;
+
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'quizaccess_onesession';
-$plugin->version   = 2016041902;
-$plugin->release = '0.6';
-$plugin->maturity = MATURITY_ALPHA;
-$plugin->requires = 2015051100; // Moodle 3.0.
+/**
+ * Class for event observers
+ *
+ * @package    quizaccess_onesession
+ * @copyright  2016 Vadim Dvorovenko <Vadimon@mail.ru>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class observers {
 
+    /**
+     * Remove unneded session information when when attempt finished, abandoned, overdue or deleted.
+     *
+     * @param \core\event\base $event
+     */
+    public static function unlock_attempt(\core\event\base $event) {
+        global $DB;
 
+        $attemptid = $event->objectid;
+        if (!empty($attemptid)) {
+            $DB->delete_records('quizaccess_onesession_sess', array('attemptid' => $attemptid));
+        }
+    }
+
+}

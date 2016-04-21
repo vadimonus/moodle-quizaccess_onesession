@@ -89,8 +89,8 @@ class quizaccess_onesession extends quiz_access_rule_base {
         if (is_null($attemptid)) {
             return false;
         }
-        // Do not lock preview.
-        // We cannot clear quizaccess_onesession_sess, because current_attempt_finished is not called on preview finish.
+        // Do not lock preview. We cannot clear quizaccess_onesession_sess, because current_attempt_finished and event observers
+        // are not called on preview finish.
         $attemptobj = quiz_attempt::create($attemptid);
         if ($attemptobj->is_preview()) {
             return false;
@@ -111,18 +111,6 @@ class quizaccess_onesession extends quiz_access_rule_base {
             // We do not need preflight form.
             print_error('anothersession', 'quizaccess_onesession', $this->quizobj->view_url());
         }
-    }
-
-    /**
-     * This is called when the current attempt at the quiz is finished. This is
-     * used, for example by the password rule, to clear the flag in the session.
-     */
-    public function current_attempt_finished() {
-        global $DB, $USER;
-
-        $where = 'attemptid IN (SELECT id FROM {quiz_attempts} WHERE quiz = :quiz AND userid = :userid)';
-        $params = array('quiz' => $this->quiz->id, 'userid' => $USER->id);
-        $attempts = $DB->delete_records_select('quizaccess_onesession_sess', $where, $params);
     }
 
     /**
