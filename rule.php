@@ -106,9 +106,20 @@ class quizaccess_onesession extends quiz_access_rule_base {
         } else if ($this->validate_session_hash($session->sessionhash)) {
             return false;
         } else {
-            // TODO: log this error.
+            // Log error.
+            $params = array(
+                'objectid' => $attemptobj->get_attemptid(),
+                'relateduserid' => $attemptobj->get_userid(),
+                'courseid' => $attemptobj->get_courseid(),
+                'context' => $attemptobj->get_quizobj()->get_context(),
+                'other' => array(
+                    'quizid' => $attemptobj->get_quizid()
+                )
+            );
+            $event = \quizaccess_onesession\event\attempt_blocked::create($params);
+            $event->trigger();
 
-            // We do not need preflight form.
+            // We do not need preflight form. Just error.
             print_error('anothersession', 'quizaccess_onesession', $this->quizobj->view_url());
         }
     }

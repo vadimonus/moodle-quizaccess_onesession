@@ -25,6 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['anothersession'] = 'You are trying to access quiz attempt from computer, device or browser other than the one you used to start quiz. If you have accidentally closed your browser, please, contact the teacher.';
+$string['eventattemptblocked'] = 'Student\'s attempt to continue quiz attempt using other device was blocked';
 $string['eventattemptunlocked'] = 'Student was allowed to continue quiz attempt using other device';
 $string['onesession'] = 'Block concurrent connections';
 $string['onesession_help'] = 'If enabled users can continue quiz attempt only in the same browser session. Any attempts to open same quiz attampt using another computer, device or browser will be blocked. This may be useful to be shure that no one helps student by opening same quiz attampt on other computer.';
