@@ -78,6 +78,8 @@ class quizaccess_onesession extends quiz_access_rule_base {
     }
 
     /**
+     * Is check before attempt start is required.
+     *
      * @param int|null $attemptid the id of the current attempt, if there is one,
      *      otherwise null.
      * @return bool whether a check is required before the user starts/continues
@@ -95,7 +97,7 @@ class quizaccess_onesession extends quiz_access_rule_base {
         if ($attemptobj->is_preview()) {
             return false;
         }
-        $session = $DB->get_record('quizaccess_onesession_sess', array('attemptid' =>$attemptid));
+        $session = $DB->get_record('quizaccess_onesession_sess', array('attemptid' => $attemptid));
         if (empty($session)) {
             $session = new stdClass();
             $session->quizid = $this->quiz->id;
@@ -138,14 +140,14 @@ class quizaccess_onesession extends quiz_access_rule_base {
     /**
      * Get block with unlock attempt link
      *
-     * @param moodle_page $page the page object to initialise.
+     * @param int $attemptid the id of the current attempt.
      */
     private function get_attempt_unlock_block($attemptid) {
         $block = new block_contents();
         $block->attributes['id'] = 'quizaccess_onesession_unlockblock';
         $block->title = get_string('unlockthisattempt_header', 'quizaccess_onesession');
         $url = new moodle_url('/mod/quiz/accessrule/onesession/unlock.php', array('attempt' => $attemptid, 'sesskey' => sesskey()));
-        $link = html_writer::link($url, get_string('unlockthisattempt','quizaccess_onesession'));
+        $link = html_writer::link($url, get_string('unlockthisattempt', 'quizaccess_onesession'));
         $block->content = $link;
         return $block;
     }
