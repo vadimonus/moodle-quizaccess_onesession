@@ -60,7 +60,7 @@ class attempt_blocked extends \core\event\base {
      */
     public function get_description() {
         return "Attempt of user with id '$this->userid' to continue attempt with id '$this->objectid' for the quiz with "
-                . "course module id '$this->contextinstanceid' using other device but was blocked.";
+                . "course module id '$this->contextinstanceid' using other device was blocked.";
     }
 
     /**

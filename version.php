@@ -28,4 +28,4 @@ $plugin->component = 'quizaccess_onesession';
 $plugin->version   = 2016042800;
 $plugin->release = '1.0';
 $plugin->maturity = MATURITY_STABLE;
-$plugin->requires = 2015051100; // Moodle 3.0.
+$plugin->requires = 2014051200; // Moodle 2.7.

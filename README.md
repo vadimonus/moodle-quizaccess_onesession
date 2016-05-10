@@ -3,7 +3,7 @@ Block concurrent connections quiz access rule
 
 Requirements
 ------------
-- Moodle 3.0 (build 2015051100) or later.
+- Moodle 2.7 (build 2014051200) or later.
 
 Installation
 ------------
@@ -43,3 +43,6 @@ Changes
 -------
 Release 0.9 (build 2016042100):
 - Initial release.
+
+Release 1.0 (build 2016042800):
+- First stable version.
