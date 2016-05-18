@@ -19,7 +19,7 @@ even browser will be blocked.
 
 This is useful to prevent situation when someone helps
 student to solve quiz by accessing quiz with students username/password from other 
-computer. This is much simplier then set up subnel access rule - if teacher see that 
+computer. This is much simplier then set up subnet access rule - if teacher see that 
 student is attempting quiz that means that no one is accessing this quiz attempt 
 at the same time. 
 
