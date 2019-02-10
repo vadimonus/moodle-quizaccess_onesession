@@ -25,7 +25,7 @@
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
         <KEY NAME="quizid" TYPE="foreign" FIELDS="quizid" REFTABLE="quiz" REFFIELDS="id"/>
-        <KEY NAME="attemptid" TYPE="foreign-unique" FIELDS="attemptid" REFTABLE="quiz_attempt" REFFIELDS="id"/>
+        <KEY NAME="attemptid" TYPE="foreign-unique" FIELDS="attemptid" REFTABLE="quiz_attempts" REFFIELDS="id"/>
       </KEYS>
     </TABLE>
   </TABLES>
