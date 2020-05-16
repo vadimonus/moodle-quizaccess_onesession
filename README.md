@@ -49,3 +49,6 @@ Release 1.0 (build 2016042800):
 
 Release 1.1 (build 2021010300):
 - Privacy provider implementation.
+
+Release 1.2 (build 2021010301):
+- Setting to exclude some networks from IP check. Thanks to Roberto Pinna.

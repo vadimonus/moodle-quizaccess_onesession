@@ -25,9 +25,38 @@
 defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
-    $settings->add(new admin_setting_heading('quizaccess_onesession/heading',
-            get_string('generalsettings', 'admin'), get_string('configintro', 'quiz')));
+    $settings->add(
+        new admin_setting_heading(
+            'quizaccess_onesession/heading',
+            get_string('generalsettings', 'admin'),
+            get_string('configintro', 'quiz')
+        )
+    );
 
-    $settings->add(new admin_setting_configcheckbox_with_advanced('quizaccess_onesession/defaultenabled',
-            get_string('onesession', 'quizaccess_onesession'), '', array('value' => 0, 'adv' => true)));
+    $settings->add(
+        new admin_setting_configcheckbox_with_advanced(
+            'quizaccess_onesession/defaultenabled',
+            get_string('onesession', 'quizaccess_onesession'),
+            '',
+            array('value' => 0, 'adv' => true)
+        )
+    );
+
+    $settings->add(
+        new admin_setting_heading(
+            'quizaccess_onesession/headingadvanced',
+            get_string('advancedsettings', 'moodle'),
+            ''
+        )
+    );
+
+    $settings->add(
+        new admin_setting_configtextarea(
+            'quizaccess_onesession/whitelist',
+            get_string('whitelist', 'quizaccess_onesession'),
+            get_string('whitelist_desc', 'quizaccess_onesession'),
+            '',
+            PARAM_TEXT
+        )
+    );
 }

@@ -58,7 +58,18 @@ class quizaccess_onesession extends quiz_access_rule_base {
      * @return string
      */
     private function get_session_hash() {
-        return md5(sesskey() . getremoteaddr() . $_SERVER['HTTP_USER_AGENT']);
+
+        $sessionstring = sesskey();
+
+        $whitelist = get_config('quizaccess_onesession', 'whitelist');
+        $ipaddress = getremoteaddr();
+        if (!address_in_subnet($ipaddress, $whitelist)) {
+            $sessionstring .= $ipaddress;
+        }
+
+        $sessionstring .= $_SERVER['HTTP_USER_AGENT'];
+
+        return md5($sessionstring);
     }
 
     /**
