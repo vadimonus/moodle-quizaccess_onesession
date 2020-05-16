@@ -60,7 +60,19 @@ class quizaccess_onesession extends quiz_access_rule_base {
      * @return string
      */
     private function get_session_hash() {
-        return md5(sesskey() . getremoteaddr() . $_SERVER['HTTP_USER_AGENT']);
+        $whatcheck = get_config('quizaccess_onesession', 'whatcheck');
+
+        $sessionstring = sesskey();
+        if (!empty($whatcheck)) {
+            $checks = explode(',', $whatcheck);
+            if (in_array('ipaddress', $checks)) {
+                $sessionstring .= getremoteaddr();
+            } 
+            if (in_array('browserinfo', $checks)) {
+                $sessionstring .= $_SERVER['HTTP_USER_AGENT'];
+            } 
+        }
+        return md5($sessionstring);
     }
 
     /**

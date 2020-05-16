@@ -30,4 +30,11 @@ if ($ADMIN->fulltree) {
 
     $settings->add(new admin_setting_configcheckbox_with_advanced('quizaccess_onesession/defaultenabled',
             get_string('onesession', 'quizaccess_onesession'), '', array('value' => 0, 'adv' => true)));
+
+    $choices['ipaddress'] = get_string('ipaddress', 'quizaccess_onesession');
+    $choices['browserinfo'] = get_string('browserinfo', 'quizaccess_onesession');
+    $defaultchecks = array('ipaddress' => 1, 'browserinfo' => 1);
+    $settings->add(new admin_setting_configmulticheckbox('quizaccess_onesession/whatcheck',
+            get_string('whatcheck', 'quizaccess_onesession'), get_string('whatcheck_help', 'quizaccess_onesession'),
+            $defaultchecks, $choices));
 }

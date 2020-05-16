@@ -25,7 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'quizaccess_onesession';
-$plugin->version   = 2016042800;
+$plugin->version   = 2020051600;
 $plugin->release = '1.0';
 $plugin->maturity = MATURITY_STABLE;
 $plugin->requires = 2014051200; // Moodle 2.7.
