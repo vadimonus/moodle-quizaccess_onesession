@@ -34,3 +34,4 @@ $string['pluginname'] = 'Block concurrent sessions quiz access rule';
 $string['studentinfo'] = 'Attention! It is prohibited to change device while attempting this quiz. Plaese note that after beginning of quiz attempt any connections to this quiz using other computers, devices and browsers will be blocked. Do not close the browser window until the end of attempt, otherwise you will not be able to complete this quiz.';
 $string['unlockthisattempt'] = 'Allow student to continue this attempt using other device';
 $string['unlockthisattempt_header'] = 'Block concurrent connections';
+$string['privacy:metadata'] = 'The Block concurrent sessions access rule plugin does not store any personal data.';
