@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Rule that blocks attempt to open same quiz attampt in other session
+ * Rule that blocks attempt to open same quiz attempt in other session
  *
  * @package    quizaccess_onesession
  * @copyright  2016 Vadim Dvorovenko <Vadimon@mail.ru>
