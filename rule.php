@@ -195,7 +195,7 @@ class quizaccess_onesession extends quiz_access_rule_base {
 
     /**
      * Add any fields that this rule requires to the quiz settings form. This
-     * method is called from {@link mod_quiz_mod_form::definition()}, while the
+     * method is called from {@see mod_quiz_mod_form::definition()}, while the
      * security seciton is being built.
      * @param mod_quiz_mod_form $quizform the quiz settings form that is being built.
      * @param MoodleQuickForm $mform the wrapped MoodleQuickForm.
@@ -214,7 +214,7 @@ class quizaccess_onesession extends quiz_access_rule_base {
 
     /**
      * Save any submitted settings when the quiz settings form is submitted. This
-     * is called from {@link quiz_after_add_or_update()} in lib.php.
+     * is called from {@see quiz_after_add_or_update()} in lib.php.
      * @param object $quiz the data from the quiz form, including $quiz->id
      *      which is the id of the quiz being saved.
      */
@@ -236,7 +236,7 @@ class quizaccess_onesession extends quiz_access_rule_base {
 
     /**
      * Delete any rule-specific settings when the quiz is deleted. This is called
-     * from {@link quiz_delete_instance()} in lib.php.
+     * from {@see quiz_delete_instance()} in lib.php.
      * @param object $quiz the data from the database, including $quiz->id
      *      which is the id of the quiz being deleted.
      * @since Moodle 2.7.1, 2.6.4, 2.5.7
@@ -251,10 +251,10 @@ class quizaccess_onesession extends quiz_access_rule_base {
     /**
      * Return the bits of SQL needed to load all the settings from all the access
      * plugins in one DB query. The easiest way to understand what you need to do
-     * here is probalby to read the code of {@link quiz_access_manager::load_settings()}.
+     * here is probalby to read the code of {@see quiz_access_manager::load_settings()}.
      *
      * If you have some settings that cannot be loaded in this way, then you can
-     * use the {@link get_extra_settings()} method instead, but that has
+     * use the {@see get_extra_settings()} method instead, but that has
      * performance implications.
      *
      * @param int $quizid the id of the quiz we are loading settings for. This
