@@ -45,8 +45,6 @@ class quizaccess_onesession extends quiz_access_rule_base {
      * @return quiz_access_rule_base|null the rule, if applicable, else null.
      */
     public static function make(quiz $quizobj, $timenow, $canignoretimelimits) {
-        global $DB;
-
         if (!empty($quizobj->get_quiz()->onesessionenabled)) {
             return new self($quizobj, $timenow);
         } else {

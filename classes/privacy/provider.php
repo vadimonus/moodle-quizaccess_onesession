@@ -18,14 +18,32 @@
  * Rule that blocks attempt to open same quiz attempt in other session
  *
  * @package    quizaccess_onesession
- * @copyright  2016 Vadim Dvorovenko <Vadimon@mail.ru>
+ * @copyright  2021 Vadim Dvorovenko <Vadimon@mail.ru>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+namespace quizaccess_onesession\privacy;
+
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'quizaccess_onesession';
-$plugin->version   = 2021010300;
-$plugin->release = '1.1';
-$plugin->maturity = MATURITY_STABLE;
-$plugin->requires = 2014051200; // Moodle 2.7.
+/**
+ * Rule that blocks attempt to open same quiz attempt in other session
+ *
+ * @package    quizaccess_onesession
+ * @copyright  2021 Vadim Dvorovenko <Vadimon@mail.ru>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class provider implements \core_privacy\local\metadata\null_provider {
+
+    use \core_privacy\local\legacy_polyfill;
+
+    /**
+     * Get the language string identifier with the component's language
+     * file to explain why this plugin stores no data.
+     *
+     * @return  string
+     */
+    public static function _get_reason() {
+        return 'privacy:metadata';
+    }
+}
