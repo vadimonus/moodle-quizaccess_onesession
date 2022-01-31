@@ -12,22 +12,22 @@ visit your Admin Notification page to complete the installation.
 
 Usage
 -----
-Check "Block concurrent connections" in quiz settings. First time student will access 
-quiz attempt, session information (Moodle session, user agent, IP) will be recorded.
-Then any student attempts to access this quiz attempt from other computer or device or 
+Check "Block concurrent connections" in quiz settings. The first time a student accesses 
+its quiz attempt, session information (Moodle session, user agent, IP) will be recorded.
+Then any student attempts to access this quiz attempt from another computer or device or 
 even browser will be blocked. 
 
-This is useful to prevent situation when someone helps
-student to solve quiz by accessing quiz with students username/password from other 
-computer. This is much simplier then set up subnet access rule - if teacher see that 
-student is attempting quiz that means that no one is accessing this quiz attempt 
+This is useful to prevent a situation in which someone helps
+a student to solve a quiz by accessing the quiz with the student's username/password from another 
+computer. This is much simplier than setting up a subnet access rule - if teacher see that 
+a student is attempting a quiz that means that no one is accessing this quiz attempt 
 at the same time. 
 
-In case when student accidentally closes browser or computer breaks
-during quiz, teacher can use attempt review page to unlock this attempt and allow 
-student to continue quiz attempt on other device. 
+In case that a student accidentally closes the browser or the computer breaks
+during a quiz, teacher can use the attempt review page to unlock this attempt and allow the
+student to continue the quiz attempt on another device. 
 
-Any attempts to continue quiz from other device are logged, so teacher can see log 
+Any attempts to continue a quiz from another device are logged, so teacher can see the log 
 to determine if someone tried to cheat.
 
 Author
