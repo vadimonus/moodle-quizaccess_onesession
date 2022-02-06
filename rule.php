@@ -131,7 +131,7 @@ class quizaccess_onesession extends quiz_access_rule_base {
             $event->trigger();
 
             // We do not need preflight form. Just error.
-            print_error('anothersession', 'quizaccess_onesession', $this->quizobj->view_url());
+            throw new moodle_exception('anothersession', 'quizaccess_onesession', $this->quizobj->view_url());
         }
     }
 

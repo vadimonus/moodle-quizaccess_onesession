@@ -24,8 +24,6 @@
 
 namespace quizaccess_onesession\event;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Attempt blocked event.
  *

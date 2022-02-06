@@ -24,8 +24,6 @@
 
 namespace quizaccess_onesession\privacy;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Rule that blocks attempt to open same quiz attempt in other session
  *
