@@ -19,7 +19,7 @@ even browser will be blocked.
 
 This is useful to prevent a situation in which someone helps
 a student to solve a quiz by accessing the quiz with the student's username/password from another 
-computer. This is much simplier than setting up a subnet access rule - if teacher see that 
+computer. This is much simpler than setting up a subnet access rule - if teacher see that 
 a student is attempting a quiz that means that no one is accessing this quiz attempt 
 at the same time. 
 
@@ -52,3 +52,6 @@ Release 1.1 (build 2021010300):
 
 Release 1.2 (build 2021010301):
 - Setting to exclude some networks from IP check. Thanks to Roberto Pinna.
+
+Release 1.2.1 (build 2022020600):
+- String fixes. Thanks to Luca Bösch.
