@@ -1,5 +1,5 @@
-Block concurrent connections quiz access rule
-=============================================
+# Block concurrent connections quiz access rule
+[![Moodle Plugin CI](https://github.com/vadimonus/moodle-quizaccess_onesession/workflows/Moodle%20Plugin%20CI/badge.svg?branch=master)](https://github.com/vadimonus/moodle-quizaccess_onesession/actions?query=workflow%3A%22Moodle+Plugin+CI%22+branch%3Amaster)
 
 Requirements
 ------------

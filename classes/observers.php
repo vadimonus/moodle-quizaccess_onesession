@@ -24,8 +24,6 @@
 
 namespace quizaccess_onesession;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Class for event observers
  *
