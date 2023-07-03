@@ -22,9 +22,18 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+defined ( 'MOODLE_INTERNAL' ) || die ();
 
-require_once($CFG->dirroot . '/mod/quiz/accessrule/accessrulebase.php');
+global $CFG;
+
+// This work-around is required until Moodle 4.2 is the lowest version we support.
+if (class_exists('\mod_quiz\local\access_rule_base')) {
+    // Use aliases at class_loader level to maintain compatibility.
+    \class_alias(mod_quiz\local\access_rule_base::class, quiz_access_rule_base::class);
+    \class_alias(mod_quiz\quiz_settings::class, quiz::class);
+} else { // Lower than Moodle 4.2.
+    require_once($CFG->dirroot . '/mod/quiz/accessrule/accessrulebase.php');
+}
 
 /**
  * Rule class.
