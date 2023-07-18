@@ -59,4 +59,13 @@ if ($ADMIN->fulltree) {
             PARAM_TEXT
         )
     );
+
+    $settings->add(
+        new admin_setting_configcheckbox(
+            'quizaccess_onesession/ua_check',
+            get_string('ua_check', 'quizaccess_onesession'),
+            get_string('ua_check_desc', 'quizaccess_onesession'),
+            1
+        )
+    );
 }

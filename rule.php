@@ -63,11 +63,14 @@ class quizaccess_onesession extends quiz_access_rule_base {
 
         $whitelist = get_config('quizaccess_onesession', 'whitelist');
         $ipaddress = getremoteaddr();
-        if (!address_in_subnet($ipaddress, $whitelist)) {
+
+        if (empty($whitelist) || !address_in_subnet($ipaddress, $whitelist)) {
             $sessionstring .= $ipaddress;
         }
 
-        $sessionstring .= $_SERVER['HTTP_USER_AGENT'];
+        if (get_config('quizaccess_onesession', 'ua_check') != '0') {
+            $sessionstring .= $_SERVER['HTTP_USER_AGENT'];
+        }
 
         return md5($sessionstring);
     }
