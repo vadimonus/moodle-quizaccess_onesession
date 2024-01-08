@@ -201,10 +201,7 @@ class quizaccess_onesession extends access_rule_base {
      * @param mod_quiz_mod_form $quizform the quiz settings form that is being built.
      * @param MoodleQuickForm $mform the wrapped MoodleQuickForm.
      */
-    public static function add_settings_form_fields(
-            mod_quiz_mod_form $quizform, MoodleQuickForm $mform) {
-        global $DB;
-
+    public static function add_settings_form_fields(mod_quiz_mod_form $quizform, MoodleQuickForm $mform) {
         $pluginconfig = get_config('quizaccess_onesession');
 
         $mform->addElement('checkbox', 'onesessionenabled', get_string('onesession', 'quizaccess_onesession'));
