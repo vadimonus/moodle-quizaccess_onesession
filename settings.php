@@ -24,7 +24,8 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-if ($ADMIN->fulltree) {
+if ($hassiteconfig) {
+
     $settings->add(
         new admin_setting_heading(
             'quizaccess_onesession/heading',
