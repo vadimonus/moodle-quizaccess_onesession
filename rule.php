@@ -60,31 +60,47 @@ class quizaccess_onesession extends access_rule_base {
      */
     private function get_session_hash() {
 
-        $sessionstring = sesskey();
+        $sessionstring = $this->get_session_string();
 
-        $whitelist = get_config('quizaccess_onesession', 'whitelist');
-        $ipaddress = getremoteaddr();
-        if (!address_in_subnet($ipaddress, $whitelist)) {
-            $sessionstring .= $ipaddress;
-        }
-
-        $sessionstring .= $_SERVER['HTTP_USER_AGENT'];
-
-        return md5($sessionstring);
+        // All sessionstring parts (ip, sesskey, user-agent) are known to user.
+        // To make it impossible to find a collision, we add a random salt that will be stored on the client side.
+        // We could use bсrуpt for this, but it truncates the line to 72 characters, which is not enough.
+        $secret = random_bytes(16);
+        return bin2hex($secret) . '|' . hash_hmac('sha256', $sessionstring, $secret);
     }
 
     /**
      * Returns session hash based on moodle session, IP and browser info
      *
-     * @param string $hash
+     * @return string
+     */
+    private function get_session_string() {
+
+        $sessionstring = [];
+        $sessionstring[] = sesskey();
+
+        $whitelist = get_config('quizaccess_onesession', 'whitelist');
+        $ipaddress = getremoteaddr();
+        if (!address_in_subnet($ipaddress, $whitelist)) {
+            $sessionstring[] = $ipaddress;
+        }
+
+        $sessionstring[] = $_SERVER['HTTP_USER_AGENT'];
+
+        return implode('', $sessionstring);
+    }
+
+    /**
+     * Returns session hash based on moodle session, IP and browser info
+     *
+     * @param string $secretandhash
      * @return bool
      */
-    private function validate_session_hash($hash) {
-        if ($hash === $this->get_session_hash()) {
-            return true;
-        } else {
-            return false;
-        }
+    private function validate_session_hash($secretandhash) {
+        [$secrethex, $storedhash] = explode('|', $secretandhash);
+        $secret = hex2bin($secrethex);
+        $currenthash = hash_hmac('sha256', $this->get_session_string(), $secret);
+        return hash_equals($storedhash, $currenthash);
     }
 
     /**
@@ -112,7 +128,8 @@ class quizaccess_onesession extends access_rule_base {
             $session = new stdClass();
             $session->quizid = $this->quiz->id;
             $session->attemptid = $attemptid;
-            $session->sessionhash = $this->get_session_hash();
+            $salt = random_bytes(16);
+            $session->sessionhash = $this->get_session_hash($salt);
             $DB->insert_record('quizaccess_onesession_sess', $session);
             return false;
         } else if ($this->validate_session_hash($session->sessionhash)) {
