@@ -67,7 +67,7 @@ class attempt_blocked extends \core\event\base {
      * @return \moodle_url
      */
     public function get_url() {
-        return new \moodle_url('/mod/quiz/review.php', array('attempt' => $this->objectid));
+        return new \moodle_url('/mod/quiz/review.php', ['attempt' => $this->objectid]);
     }
 
     /**
@@ -116,7 +116,7 @@ class attempt_blocked extends \core\event\base {
      * @return string the name of the restore mapping the objectid links to
      */
     public static function get_objectid_mapping() {
-        return array('db' => 'quiz_attempts', 'restore' => 'quiz_attempt');
+        return ['db' => 'quiz_attempts', 'restore' => 'quiz_attempt'];
     }
 
     /**
@@ -154,8 +154,8 @@ class attempt_blocked extends \core\event\base {
      * @return array an array of other values and their corresponding mapping
      */
     public static function get_other_mapping() {
-        $othermapped = array();
-        $othermapped['quizid'] = array('db' => 'quiz', 'restore' => 'quiz');
+        $othermapped = [];
+        $othermapped['quizid'] = ['db' => 'quiz', 'restore' => 'quiz'];
 
         return $othermapped;
     }

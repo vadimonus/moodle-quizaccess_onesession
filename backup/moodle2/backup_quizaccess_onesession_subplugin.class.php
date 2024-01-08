@@ -51,11 +51,11 @@ class backup_quizaccess_onesession_subplugin extends backup_mod_quiz_access_subp
         $subpluginwrapper = new backup_nested_element($this->get_recommended_name());
         $subplugin->add_child($subpluginwrapper);
 
-        $subplugintablesettings = new backup_nested_element('quizaccess_onesession', null, array('enabled'));
+        $subplugintablesettings = new backup_nested_element('quizaccess_onesession', null, ['enabled']);
         $subpluginwrapper->add_child($subplugintablesettings);
 
         $subplugintablesettings->set_source_table('quizaccess_onesession',
-                array('quizid' => backup::VAR_ACTIVITYID));
+                ['quizid' => backup::VAR_ACTIVITYID]);
 
         return $subplugin;
     }

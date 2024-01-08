@@ -24,25 +24,25 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$observers = array(
-    array(
+$observers = [
+    [
         'eventname' => '\mod_quiz\event\attempt_abandoned',
         'callback'  => '\quizaccess_onesession\observers::unlock_attempt',
-    ),
+    ],
 
-    array(
+    [
         'eventname' => '\mod_quiz\event\attempt_becameoverdue',
         'callback'  => '\quizaccess_onesession\observers::unlock_attempt',
-    ),
+    ],
 
-    array(
+    [
         'eventname' => '\mod_quiz\event\attempt_deleted',
         'callback'  => '\quizaccess_onesession\observers::unlock_attempt',
-    ),
+    ],
 
-    array(
+    [
         'eventname' => '\mod_quiz\event\attempt_submitted',
         'callback'  => '\quizaccess_onesession\observers::unlock_attempt',
-    ),
+    ],
 
-);
+];

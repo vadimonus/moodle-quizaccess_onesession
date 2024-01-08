@@ -106,7 +106,7 @@ class quizaccess_onesession extends quiz_access_rule_base {
         if ($attemptobj->is_preview()) {
             return false;
         }
-        $session = $DB->get_record('quizaccess_onesession_sess', array('attemptid' => $attemptid));
+        $session = $DB->get_record('quizaccess_onesession_sess', ['attemptid' => $attemptid]);
         if (empty($session)) {
             $session = new stdClass();
             $session->quizid = $this->quiz->id;
@@ -118,15 +118,15 @@ class quizaccess_onesession extends quiz_access_rule_base {
             return false;
         } else {
             // Log error.
-            $params = array(
+            $params = [
                 'objectid' => $attemptobj->get_attemptid(),
                 'relateduserid' => $attemptobj->get_userid(),
                 'courseid' => $attemptobj->get_courseid(),
                 'context' => $attemptobj->get_quizobj()->get_context(),
-                'other' => array(
-                    'quizid' => $attemptobj->get_quizid()
-                )
-            );
+                'other' => [
+                    'quizid' => $attemptobj->get_quizid(),
+                ],
+            ];
             $event = \quizaccess_onesession\event\attempt_blocked::create($params);
             $event->trigger();
 
@@ -155,7 +155,7 @@ class quizaccess_onesession extends quiz_access_rule_base {
         $block = new block_contents();
         $block->attributes['id'] = 'quizaccess_onesession_unlockblock';
         $block->title = get_string('unlockthisattempt_header', 'quizaccess_onesession');
-        $url = new moodle_url('/mod/quiz/accessrule/onesession/unlock.php', array('attempt' => $attemptid, 'sesskey' => sesskey()));
+        $url = new moodle_url('/mod/quiz/accessrule/onesession/unlock.php', ['attempt' => $attemptid, 'sesskey' => sesskey()]);
         $link = html_writer::link($url, get_string('unlockthisattempt', 'quizaccess_onesession'));
         $block->content = $link;
         return $block;
@@ -185,7 +185,7 @@ class quizaccess_onesession extends quiz_access_rule_base {
         if ($attemptobj->get_state() != quiz_attempt::IN_PROGRESS) {
             return;
         }
-        if (!$DB->record_exists('quizaccess_onesession_sess', array('attemptid' => $attemptid))) {
+        if (!$DB->record_exists('quizaccess_onesession_sess', ['attemptid' => $attemptid])) {
             return;
         }
         $unlockblock = $this->get_attempt_unlock_block($attemptid);
@@ -222,10 +222,10 @@ class quizaccess_onesession extends quiz_access_rule_base {
         global $DB;
 
         if (empty($quiz->onesessionenabled)) {
-            $DB->delete_records('quizaccess_onesession', array('quizid' => $quiz->id));
-            $DB->delete_records('quizaccess_onesession_sess', array('quizid' => $quiz->id));
+            $DB->delete_records('quizaccess_onesession', ['quizid' => $quiz->id]);
+            $DB->delete_records('quizaccess_onesession_sess', ['quizid' => $quiz->id]);
         } else {
-            if (!$DB->record_exists('quizaccess_onesession', array('quizid' => $quiz->id))) {
+            if (!$DB->record_exists('quizaccess_onesession', ['quizid' => $quiz->id])) {
                 $record = new stdClass();
                 $record->quizid = $quiz->id;
                 $record->enabled = 1;
@@ -244,8 +244,8 @@ class quizaccess_onesession extends quiz_access_rule_base {
     public static function delete_settings($quiz) {
         global $DB;
 
-        $DB->delete_records('quizaccess_onesession', array('quizid' => $quiz->id));
-        $DB->delete_records('quizaccess_onesession_sess', array('quizid' => $quiz->id));
+        $DB->delete_records('quizaccess_onesession', ['quizid' => $quiz->id]);
+        $DB->delete_records('quizaccess_onesession_sess', ['quizid' => $quiz->id]);
     }
 
     /**
@@ -269,9 +269,9 @@ class quizaccess_onesession extends quiz_access_rule_base {
      *        plugin name, to avoid collisions.
      */
     public static function get_settings_sql($quizid) {
-        return array(
+        return [
             'quizaccess_onesession.enabled onesessionenabled',
             'LEFT JOIN {quizaccess_onesession} quizaccess_onesession ON quizaccess_onesession.quizid = quiz.id',
-            array());
+            []];
     }
 }

@@ -44,7 +44,7 @@ class restore_quizaccess_onesession_subplugin extends restore_mod_quiz_access_su
      */
     protected function define_quiz_subplugin_structure() {
 
-        $paths = array();
+        $paths = [];
 
         $elename = $this->get_namefor('');
         $elepath = $this->get_pathfor('/quizaccess_onesession');

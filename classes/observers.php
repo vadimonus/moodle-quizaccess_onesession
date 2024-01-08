@@ -43,7 +43,7 @@ class observers {
 
         $attemptid = $event->objectid;
         if (!empty($attemptid)) {
-            $DB->delete_records('quizaccess_onesession_sess', array('attemptid' => $attemptid));
+            $DB->delete_records('quizaccess_onesession_sess', ['attemptid' => $attemptid]);
         }
     }
 

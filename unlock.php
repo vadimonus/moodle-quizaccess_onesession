@@ -34,17 +34,17 @@ $attemptobj = quiz_attempt::create($attemptid);
 $context = $attemptobj->get_quizobj()->get_context();
 require_capability('quizaccess/onesession:unlockattempt', $context);
 
-$DB->delete_records('quizaccess_onesession_sess', array('attemptid' => $attemptid));
+$DB->delete_records('quizaccess_onesession_sess', ['attemptid' => $attemptid]);
 
-$params = array(
+$params = [
     'objectid' => $attemptobj->get_attemptid(),
     'relateduserid' => $attemptobj->get_userid(),
     'courseid' => $attemptobj->get_courseid(),
     'context' => $context,
-    'other' => array(
-        'quizid' => $attemptobj->get_quizid()
-    )
-);
+    'other' => [
+        'quizid' => $attemptobj->get_quizid(),
+    ],
+];
 $event = \quizaccess_onesession\event\attempt_unlocked::create($params);
 $event->trigger();
 

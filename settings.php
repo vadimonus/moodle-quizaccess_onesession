@@ -38,7 +38,7 @@ if ($ADMIN->fulltree) {
             'quizaccess_onesession/defaultenabled',
             get_string('onesession', 'quizaccess_onesession'),
             '',
-            array('value' => 0, 'adv' => true)
+            ['value' => 0, 'adv' => true]
         )
     );
 
