@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-if ($hassiteconfig) {
+if ($ADMIN->fulltree && $hassiteconfig) {
 
     $settings->add(
         new admin_setting_heading(
