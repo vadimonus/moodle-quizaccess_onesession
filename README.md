@@ -3,7 +3,7 @@
 
 Requirements
 ------------
-- Moodle 2.7 (build 2014051200) or later.
+- Moodle 4.2 (build 2023042400) or later.
 
 Installation
 ------------
@@ -55,3 +55,6 @@ Release 1.2 (build 2021010301):
 
 Release 1.2.1 (build 2022020600):
 - String fixes. Thanks to Luca Bösch.
+
+Release 2.0.0 (build 2024XXXXXX):
+- Removed support for versions prior to 4.2.
