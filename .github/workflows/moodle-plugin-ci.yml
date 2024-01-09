@@ -41,7 +41,7 @@ jobs:
             database: pgsql
           - php: '8.2'
             moodle-branch: 'MOODLE_403_STABLE'
-            database: pgsql
+            database: mariadb
           # Min versions
           - php: '8.0'
             moodle-branch: 'MOODLE_402_STABLE'
