@@ -67,3 +67,6 @@ Release 1.2.1 (build 2022020600):
 Release 2.0.0 (build 2024010802):
 - Removed support for versions prior to 4.2.
 - Changed hash algorithm from md5 to sha256 with random salt.  
+
+Release 2.0.1 (build 2024010802):
+- Changed unlock block title   
