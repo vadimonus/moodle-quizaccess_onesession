@@ -69,4 +69,4 @@ Release 2.0.0 (build 2024010802):
 - Changed hash algorithm from md5 to sha256 with random salt.  
 
 Release 2.0.1 (build 2024010802):
-- Changed unlock block title   
+- Changed unlock block title
