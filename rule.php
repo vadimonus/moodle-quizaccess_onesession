@@ -128,8 +128,7 @@ class quizaccess_onesession extends access_rule_base {
             $session = new stdClass();
             $session->quizid = $this->quiz->id;
             $session->attemptid = $attemptid;
-            $salt = random_bytes(16);
-            $session->sessionhash = $this->get_session_hash($salt);
+            $session->sessionhash = $this->get_session_hash();
             $DB->insert_record('quizaccess_onesession_sess', $session);
             return false;
         } else if ($this->validate_session_hash($session->sessionhash)) {
